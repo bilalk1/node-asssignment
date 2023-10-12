@@ -1,25 +1,19 @@
-import { NextFunction, Request, Router } from 'express';
+import { NextFunction, Request, Router, Response } from 'express';
 
 import BaseApi from '../BaseApi';
 import TaskService from './task.service';
+import { TaskBody, TaskResponse } from './task.types';
 
 /**
- * Status controller
+ * Task controller
  */
 export default class TaskController extends BaseApi {
 	private taskService: TaskService
-	/**
-	 *
-	 */
 	constructor(
 	) {
 		super();
 		this.taskService = new TaskService()
 	}
-
-	/**
-	 *
-	 */
 	public register(): Router {
 		this.router.post('/task', this.postTask.bind(this));
 		this.router.get('/task/:id', this.getTaskById.bind(this));
@@ -38,18 +32,20 @@ export default class TaskController extends BaseApi {
 	 */
 	public postTask(
 		req: Request,
-		res: any,
+		res: Response,
 		next: NextFunction,
 	): void {
-		try {
 
-			let task = this.taskService.createTask({})
-			res.locals.data = task
+		try {
+			const { body }: { body: TaskBody } = req;
+			let taskResponse: TaskResponse = this.taskService.createTask(body)
+			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
 			next(err);
 		}
 	}
+
 	/**
 	 *
 	 * @param req
@@ -58,18 +54,19 @@ export default class TaskController extends BaseApi {
 	 */
 	public getTaskById(
 		req: Request,
-		res: any,
+		res: Response,
 		next: NextFunction,
 	): void {
 		try {
-
-			let task = this.taskService.fetchTaskById({})
-			res.locals.data = task
+			const id: number = parseInt(req.params.id);
+			let taskResponse: TaskResponse = this.taskService.fetchTaskById(id)
+			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
 			next(err);
 		}
 	}
+
 	/**
 	 *
 	 * @param req
@@ -78,18 +75,20 @@ export default class TaskController extends BaseApi {
 	 */
 	public putTask(
 		req: Request,
-		res: any,
+		res: Response,
 		next: NextFunction,
 	): void {
 		try {
-
-			let task = this.taskService.updateTask({})
-			res.locals.data = task
+			const id: number = parseInt(req.params.id);
+			const { body }: { body: TaskBody } = req;
+			let taskResponse: TaskResponse = this.taskService.updateTask(id, body)
+			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
 			next(err);
 		}
 	}
+
 	/**
 	 *
 	 * @param req
@@ -102,14 +101,15 @@ export default class TaskController extends BaseApi {
 		next: NextFunction,
 	): void {
 		try {
-
-			let task = this.taskService.deleteTask({})
-			res.locals.data = task
+			const id: number = parseInt(req.params.id);
+			let taskResponse: string = this.taskService.deleteTask(id)
+			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
 			next(err);
 		}
 	}
+
 	/**
 	 *
 	 * @param req
@@ -123,8 +123,8 @@ export default class TaskController extends BaseApi {
 	): void {
 		try {
 
-			let task = this.taskService.fetchAllTasks({})
-			res.locals.data = task
+			let taskResponse: Array<TaskResponse> = this.taskService.fetchAllTasks()
+			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
 			next(err);
