@@ -97,7 +97,7 @@ export default class TaskController extends BaseApi {
 	 */
 	public deleteTask(
 		req: Request,
-		res: any,
+		res: Response,
 		next: NextFunction,
 	): void {
 		try {
@@ -118,7 +118,7 @@ export default class TaskController extends BaseApi {
 	 */
 	public getTasks(
 		req: Request,
-		res: any,
+		res: Response,
 		next: NextFunction,
 	): void {
 		try {
