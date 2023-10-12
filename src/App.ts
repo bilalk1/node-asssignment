@@ -1,5 +1,6 @@
 import express from 'express';
 import http from 'http';
+import routes from './routes';
 
 
 export default class App {
@@ -10,5 +11,10 @@ export default class App {
 	public async init(): Promise<void> {
 		this.express = express();
 		this.httpServer = http.createServer(this.express);
+		this.routes();
+	}
+
+	private routes(): void {
+		this.express.use('/api', routes());
 	}
 }
