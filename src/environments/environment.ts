@@ -43,7 +43,6 @@ class Environment implements IEnvironment {
 		let envPath: string;
 		this.env = env || Environments.LOCAL;
 		const rootdir: string = path.resolve(__dirname, '../../');
-		console.log(rootdir);
 		switch (env) {
 			case Environments.PRODUCTION:
 				envPath = path.resolve(rootdir, EnvironmentFile.PRODUCTION);
