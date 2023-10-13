@@ -1,7 +1,7 @@
-import express, { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-
+import express, { Request, Response } from 'express';
 import http from 'http';
+
 import routes from './routes';
 import { SERVER_HEALTHY } from './messages';
 

@@ -14,6 +14,11 @@ class Environment implements IEnvironment {
 
 	public env: string;
 
+	public dbConnString: string;
+
+	public dbName: string;
+
+
 	/**
 	 *
 	 * @param NODE_ENV
@@ -25,6 +30,8 @@ class Environment implements IEnvironment {
 		this.port = Number(port);
 		this.applyEncryption = JSON.parse(process.env.APPLY_ENCRYPTION);
 		this.secretKey = process.env.SECRET_KEY;
+		this.dbConnString = process.env.DB_CONN_STRING;
+		this.dbName = process.env.DB_NAME;
 	}
 
 	/**
