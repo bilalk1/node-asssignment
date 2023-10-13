@@ -9,6 +9,6 @@ export default function routes(): Router {
 	const router = Router();
 
 	const taskController: TaskController = new TaskController();
-	router.use('/', taskController.register());
+	router.use('/api', taskController.register());
 	return router;
 }

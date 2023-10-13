@@ -1,0 +1,1 @@
+export const SERVER_HEALTHY = "Task service is healthy!"

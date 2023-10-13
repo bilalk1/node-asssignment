@@ -1,6 +1,9 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+
 import http from 'http';
 import routes from './routes';
+import { SERVER_HEALTHY } from './messages';
 
 
 export default class App {
@@ -15,6 +18,7 @@ export default class App {
 	}
 
 	private routes(): void {
-		this.express.use('/api', routes());
+		this.express.use('/', routes());
+		this.express.use('/health', (req: Request, res: Response) => res.status(StatusCodes.OK).json(SERVER_HEALTHY));
 	}
 }
