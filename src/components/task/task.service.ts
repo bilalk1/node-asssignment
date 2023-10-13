@@ -1,4 +1,5 @@
 import { COMPLETED_STATUS } from "../../constants"
+import { ITaskDocument, TaskModel } from "../../model/task.model";
 import { TaskBody, TaskResponse } from "./task.types"
 
 /**
@@ -11,11 +12,12 @@ export default class TaskService {
 	 * @param taskBody
 	 * @returns 
 	 */
-	public createTask(
+	public async createTask(
 		taskBody: TaskBody
-	): TaskResponse {
-		// Integrate the db for state management
-		return { id: 1, creationDate: new Date(), ...taskBody }
+	): Promise<any> {
+		taskBody.dueDate = new Date()
+		const createdTask = await TaskModel.create(taskBody);
+		return createdTask
 	}
 
 	/**

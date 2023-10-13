@@ -4,7 +4,7 @@ import { setGlobalEnvironment } from './global';
 import App from './App';
 import Environment from './environments/environment';
 import logger from './lib/logger';
-import connectToDatabase  from './config/mongoDb';
+import connectToDatabase from './config/mongoDb';
 
 const env: Environment = new Environment();
 setGlobalEnvironment(env);
@@ -33,7 +33,7 @@ app.init()
 		server.on('listening', serverListening);
 		server.listen(env.port);
 	})
-	.then(()=>{
+	.then(() => {
 		connectToDatabase(env)
 	})
 	.catch((err: Error) => {
@@ -46,5 +46,4 @@ app.init()
 process.on('unhandledRejection', (reason: Error) => {
 	logger.error('Unhandled Promise Rejection: reason:', reason.message);
 	logger.error(reason.stack);
-	// application specific logging, throwing an error, or other logic here
 });

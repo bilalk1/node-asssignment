@@ -30,15 +30,15 @@ export default class TaskController extends BaseApi {
 	 * @param res
 	 * @param next
 	 */
-	public postTask(
+	public async postTask(
 		req: Request,
 		res: Response,
 		next: NextFunction,
-	): void {
+	): Promise<void> {
 
 		try {
 			const { body }: { body: TaskBody } = req;
-			let taskResponse: TaskResponse = this.taskService.createTask(body)
+			let taskResponse = await this.taskService.createTask(body)
 			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
