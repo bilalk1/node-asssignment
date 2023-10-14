@@ -20,7 +20,6 @@
     "pretty": "prettier --write \"src/**/*.ts\"",
     "prepare": "husky install",
     "test:custom": "npm test --  tests/unit-tests/environments/environment.spec.ts",
-    "precommit": "npm run lint-fix && npm run pretty",
     "prepush": "npm run lint ",
     "test": "NODE_ENV=test jest --coverage",
     "test:watch": "jest --watch"
