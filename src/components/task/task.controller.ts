@@ -3,6 +3,7 @@ import { NextFunction, Request, Router, Response } from 'express';
 import BaseApi from '../BaseApi';
 import TaskService from './task.service';
 import { TaskBody, TaskResponse } from './task.types';
+import { paginate } from '../../helpers';
 
 /**
  * Task controller
@@ -20,7 +21,6 @@ export default class TaskController extends BaseApi {
 		this.router.put('/task/:id', this.putTask.bind(this));
 		this.router.delete('/task/:id', this.deleteTask.bind(this));
 		this.router.get('/tasks', this.getTasks.bind(this));
-		// this.router.get('/error', this.getError.bind(this));
 		return this.router;
 	}
 
@@ -38,7 +38,7 @@ export default class TaskController extends BaseApi {
 
 		try {
 			const { body }: { body: TaskBody } = req;
-			let taskResponse = await this.taskService.createTask(body)
+			const taskResponse = await this.taskService.createTask(body)
 			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
@@ -52,14 +52,14 @@ export default class TaskController extends BaseApi {
 	 * @param res
 	 * @param next
 	 */
-	public getTaskById(
+	public async getTaskById(
 		req: Request,
 		res: Response,
 		next: NextFunction,
-	): void {
+	): Promise<void> {
 		try {
-			const id: number = parseInt(req.params.id);
-			let taskResponse: TaskResponse = this.taskService.fetchTaskById(id)
+			const id: string = req.params.id;
+			let taskResponse = await this.taskService.fetchTaskById(id)
 			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
@@ -73,15 +73,15 @@ export default class TaskController extends BaseApi {
 	 * @param res
 	 * @param next
 	 */
-	public putTask(
+	public async putTask(
 		req: Request,
 		res: Response,
 		next: NextFunction,
-	): void {
+	): Promise<void> {
 		try {
-			const id: number = parseInt(req.params.id);
+			const id: string = req.params.id;
 			const { body }: { body: TaskBody } = req;
-			let taskResponse: TaskResponse = this.taskService.updateTask(id, body)
+			let taskResponse: TaskResponse = await this.taskService.updateTask(id, body)
 			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
@@ -95,14 +95,14 @@ export default class TaskController extends BaseApi {
 	 * @param res
 	 * @param next
 	 */
-	public deleteTask(
+	public async deleteTask(
 		req: Request,
 		res: Response,
 		next: NextFunction,
-	): void {
+	): Promise<void> {
 		try {
-			const id: number = parseInt(req.params.id);
-			let taskResponse: string = this.taskService.deleteTask(id)
+			const id: string = req.params.id;
+			let taskResponse: string = await this.taskService.deleteTask(id)
 			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
@@ -116,14 +116,15 @@ export default class TaskController extends BaseApi {
 	 * @param res
 	 * @param next
 	 */
-	public getTasks(
+	public async getTasks(
 		req: Request,
 		res: Response,
 		next: NextFunction,
-	): void {
+	): Promise<void> {
 		try {
-
-			let taskResponse: Array<TaskResponse> = this.taskService.fetchAllTasks()
+			const { assignedTo, category, page, pageSize }: any = req.query;
+			const { skip, limit } = paginate({ page, pageSize })
+			let taskResponse: Array<TaskResponse> = await this.taskService.fetchAllTasks(assignedTo, category, skip, limit)
 			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {

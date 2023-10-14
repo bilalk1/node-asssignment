@@ -6,6 +6,7 @@ import routes from './routes';
 import { SERVER_HEALTHY } from './messages';
 import helmet from 'helmet';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 
 
 export default class App {
@@ -32,5 +33,6 @@ export default class App {
 			express.urlencoded({ limit: '100mb', extended: true }),
 		);
 		this.express.use(cors());
+		this.express.use(bodyParser.json())
 	}
 }

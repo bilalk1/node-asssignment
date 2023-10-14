@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "0a1264c8-7456-4038-843a-af89923be17f",
+		"name": "Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29446306"
+	},
+	"item": [
+		{
+			"name": "Create Task",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Complete the assignment\",\n    \"description\": \"Node assignemtn for the evaluation of the skills\",\n    \"dueDate\": 1697328000000,\n    \"assignedTo\": \"Taha Muhammad\",\n    \"category\": \"Assignment\",\n    \"status\": \"pending\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}api/task",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Task by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}api/task/652ad8daa266457199078b8c",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"task",
+						"652ad8daa266457199078b8c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update task",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"category\": \"Test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}api/task/652a904cad60b65c0a4a14b1",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"task",
+						"652a904cad60b65c0a4a14b1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Task",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}api/task/652ad7ce650f6967fc9dcd95",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"task",
+						"652ad7ce650f6967fc9dcd95"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}api/tasks",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tasks Filter by category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}api/tasks?category=Test",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Test"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tasks Filter by assignedTo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}api/tasks?assignedTo=Bilal iftikhar",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "assignedTo",
+							"value": "Bilal iftikhar"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tasks With Pagination",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}api/tasks?page=1&pageSize=10",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
