@@ -81,7 +81,7 @@ export default class TaskController extends BaseApi {
 		try {
 			const id: string = req.params.id;
 			const { body }: { body: TaskBody } = req;
-			let taskResponse: TaskResponse = await this.taskService.updateTask(id, body)
+			let taskResponse = await this.taskService.updateTask(id, body)
 			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
@@ -124,7 +124,7 @@ export default class TaskController extends BaseApi {
 		try {
 			const { assignedTo, category, page, pageSize }: any = req.query;
 			const { skip, limit } = paginate({ page, pageSize })
-			let taskResponse: Array<TaskResponse> = await this.taskService.fetchAllTasks(assignedTo, category, skip, limit)
+			let taskResponse = await this.taskService.fetchAllTasks(category, assignedTo, skip, limit)
 			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
