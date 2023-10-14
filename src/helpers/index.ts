@@ -1,3 +1,4 @@
+import { Request, } from 'express';
 import { PaginationOptions } from '../types';
 
 export const paginate = (paginationOptions: PaginationOptions) => {
@@ -7,3 +8,5 @@ export const paginate = (paginationOptions: PaginationOptions) => {
     skip = (skip - 1) * limit;
     return { skip, limit };
 };
+
+export const getIdFromRouteParams = (req: Request) => req.params?.id

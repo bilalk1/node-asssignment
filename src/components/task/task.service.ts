@@ -1,7 +1,8 @@
-import { UpdateWriteOpResult } from "mongoose";
-import { COMPLETED_STATUS } from "../../constants"
 import { ITaskDocument, TaskModel } from "../../model/task.model";
-import { TaskBody, TaskResponse } from "./task.types"
+import { TaskBody } from "./task.types"
+import ApiError from "../../abstractions/ApiError";
+import { StatusCodes } from "http-status-codes";
+import { DELETE_TASK_ERROR_ID_NOT_EXISTS, DELETE_TASK_SUCCESS, GET_TASK_ERROR_ID_NOT_EXISTS, UPDATE_TASK_ERROR_ID_NOT_EXISTS, UPDATE_TASK_SUCCESS } from "../../messages";
 
 /**
  * Task service
@@ -28,8 +29,10 @@ export default class TaskService {
 	 */
 	public async fetchTaskById(
 		id: string,
-	): Promise<TaskResponse> {
-		return await TaskModel.findById(id)
+	): Promise<ITaskDocument> {
+		const task = await TaskModel.findById(id);
+		if (!task) throw new ApiError(GET_TASK_ERROR_ID_NOT_EXISTS, StatusCodes.NOT_FOUND)
+		return task
 	}
 
 	/**
@@ -41,8 +44,10 @@ export default class TaskService {
 	public async updateTask(
 		_id: string,
 		taskBody: TaskBody
-	): Promise<UpdateWriteOpResult> {
-		return await TaskModel.updateOne({ _id }, taskBody)
+	): Promise<string> {
+		const { modifiedCount } = await TaskModel.updateOne({ _id }, taskBody)
+		if (!modifiedCount) throw new ApiError(UPDATE_TASK_ERROR_ID_NOT_EXISTS, StatusCodes.NOT_FOUND);
+		return UPDATE_TASK_SUCCESS;
 	}
 
 	/**
@@ -53,8 +58,9 @@ export default class TaskService {
 	public async deleteTask(
 		_id: string,
 	): Promise<string> {
-		await TaskModel.deleteOne({ _id })
-		return "Task deleted!"
+		const { deletedCount } = await TaskModel.deleteOne({ _id })
+		if (!deletedCount) throw new ApiError(DELETE_TASK_ERROR_ID_NOT_EXISTS, StatusCodes.NOT_FOUND)
+		return DELETE_TASK_SUCCESS
 	}
 
 	/**

@@ -7,6 +7,7 @@ import { SERVER_HEALTHY } from './messages';
 import helmet from 'helmet';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import addErrorHandler from './middleware/error-handler';
 
 
 export default class App {
@@ -19,6 +20,7 @@ export default class App {
 		this.httpServer = http.createServer(this.express);
 		this.middleware()
 		this.routes();
+		this.express.use(addErrorHandler);
 	}
 
 	private routes(): void {

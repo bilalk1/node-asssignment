@@ -2,8 +2,8 @@ import { NextFunction, Request, Router, Response } from 'express';
 
 import BaseApi from '../BaseApi';
 import TaskService from './task.service';
-import { TaskBody, TaskResponse } from './task.types';
-import { paginate } from '../../helpers';
+import { TaskBody } from './task.types';
+import { getIdFromRouteParams, paginate } from '../../helpers';
 
 /**
  * Task controller
@@ -58,7 +58,7 @@ export default class TaskController extends BaseApi {
 		next: NextFunction,
 	): Promise<void> {
 		try {
-			const id: string = req.params.id;
+			const id: string = getIdFromRouteParams(req);
 			let taskResponse = await this.taskService.fetchTaskById(id)
 			res.locals.data = taskResponse
 			super.send(res);
@@ -79,9 +79,9 @@ export default class TaskController extends BaseApi {
 		next: NextFunction,
 	): Promise<void> {
 		try {
-			const id: string = req.params.id;
+			const id: string = getIdFromRouteParams(req);
 			const { body }: { body: TaskBody } = req;
-			let taskResponse = await this.taskService.updateTask(id, body)
+			const taskResponse = await this.taskService.updateTask(id, body)
 			res.locals.data = taskResponse
 			super.send(res);
 		} catch (err) {
@@ -101,7 +101,7 @@ export default class TaskController extends BaseApi {
 		next: NextFunction,
 	): Promise<void> {
 		try {
-			const id: string = req.params.id;
+			const id: string = getIdFromRouteParams(req);
 			let taskResponse: string = await this.taskService.deleteTask(id)
 			res.locals.data = taskResponse
 			super.send(res);
@@ -122,7 +122,7 @@ export default class TaskController extends BaseApi {
 		next: NextFunction,
 	): Promise<void> {
 		try {
-			const { assignedTo, category, page, pageSize }: any = req.query;
+			const { query: { assignedTo, category, page, pageSize } }: any = req;
 			const { skip, limit } = paginate({ page, pageSize })
 			let taskResponse = await this.taskService.fetchAllTasks(category, assignedTo, skip, limit)
 			res.locals.data = taskResponse
