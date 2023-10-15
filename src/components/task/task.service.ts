@@ -65,7 +65,7 @@ export default class TaskService {
       };
     }
    
-    const { matchedCount } = await TaskModel.updateOne({ _id }, taskBody);
+    const { matchedCount } = await TaskModel.updateOne({ _id }, task);
     if (!matchedCount)
       throw new ApiError(
         UPDATE_TASK_ERROR_ID_NOT_EXISTS,
