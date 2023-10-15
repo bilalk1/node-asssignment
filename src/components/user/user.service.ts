@@ -4,6 +4,7 @@ import { encryptPassword } from '../../helpers';
 import { ERROR_USER_NOT_EXISTS } from '../../messages';
 import { IUserDocument, UserModel } from '../../model/user.model';
 import JwtService from '../jwt/jwt.service';
+import { CreateUserResult } from './user.types';
 
 /**
  * User service
@@ -24,7 +25,7 @@ export default class UserService {
     name: string,
     email: string,
     password: string,
-  ): Promise<IUserDocument> {
+  ): Promise<CreateUserResult> {
     const encryptedPassword = await encryptPassword(password);
     const createdUser = await UserModel.create({
       name,
