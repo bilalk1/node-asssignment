@@ -1,14 +1,14 @@
-import { ITaskDocument, TaskModel } from "../../model/task.model";
-import { TaskBody } from "./task.types";
-import ApiError from "../../abstractions/ApiError";
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from 'http-status-codes';
+import ApiError from '../../abstractions/ApiError';
 import {
   DELETE_TASK_ERROR_ID_NOT_EXISTS,
   DELETE_TASK_SUCCESS,
   GET_TASK_ERROR_ID_NOT_EXISTS,
   UPDATE_TASK_ERROR_ID_NOT_EXISTS,
   UPDATE_TASK_SUCCESS,
-} from "../../messages";
+} from '../../messages';
+import { ITaskDocument, TaskModel } from '../../model/task.model';
+import { TaskBody } from './task.types';
 
 /**
  * Task service
@@ -19,9 +19,12 @@ export default class TaskService {
    * @param taskBody
    * @returns
    */
-  public async createTask(taskBody: TaskBody): Promise<any> {
-    taskBody.dueDate = new Date(taskBody.dueDate);
-    const createdTask = await TaskModel.create(taskBody);
+  public async createTask(taskBody: TaskBody): Promise<ITaskDocument> {
+    const task = {
+      ...taskBody,
+      dueDate: new Date(taskBody.dueDate),
+    };
+    const createdTask = await TaskModel.create(task);
     return createdTask;
   }
 
@@ -48,7 +51,7 @@ export default class TaskService {
     if (!modifiedCount)
       throw new ApiError(
         UPDATE_TASK_ERROR_ID_NOT_EXISTS,
-        StatusCodes.NOT_FOUND,
+        StatusCodes.NOT_FOUND
       );
     return UPDATE_TASK_SUCCESS;
   }
@@ -63,7 +66,7 @@ export default class TaskService {
     if (!deletedCount)
       throw new ApiError(
         DELETE_TASK_ERROR_ID_NOT_EXISTS,
-        StatusCodes.NOT_FOUND,
+        StatusCodes.NOT_FOUND
       );
     return DELETE_TASK_SUCCESS;
   }
@@ -80,7 +83,7 @@ export default class TaskService {
     category?: string,
     assignedTo?: string,
     skip: number = 1,
-    limit: number = 10,
+    limit: number = 10
   ): Promise<{ tasks: ITaskDocument[]; totalTask: number }> {
     let query = {};
     if (category) {

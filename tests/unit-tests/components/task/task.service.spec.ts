@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import TaskService from '../../../../src/components/task/task.service';
 import { TaskBody } from '../../../../src/components/task/task.types';
 import { DELETE_TASK_SUCCESS, GET_TASK_ERROR_ID_NOT_EXISTS, UPDATE_TASK_SUCCESS } from '../../../../src/messages';
-import { TaskModel } from '../../../../src/model/task.model';
+import { ITaskDocument, TaskModel } from '../../../../src/model/task.model';
 import ApiError from '../../../../src/abstractions/ApiError';
 import { UpdateWriteOpResult } from 'mongoose';
 import { taskMockData } from '../../mock.data';
@@ -25,7 +25,7 @@ describe('TaskService', () => {
     it('should create a task', async () => {
 
         const createSpy = jest.spyOn(TaskModel, 'create');
-        createSpy.mockResolvedValue(taskBody as any);
+        createSpy.mockResolvedValue(taskBody as any );
 
         const createdTask = await taskService.createTask(taskBody);
 

@@ -1,19 +1,21 @@
 import { NextFunction, Request, Router, Response } from "express";
 
+import { getIdFromRouteParams, paginate } from "../../helpers";
 import BaseApi from "../BaseApi";
 import TaskService from "./task.service";
 import { TaskBody } from "./task.types";
-import { getIdFromRouteParams, paginate } from "../../helpers";
 
 /**
  * Task controller
  */
 export default class TaskController extends BaseApi {
   private taskService: TaskService;
+
   constructor() {
     super();
     this.taskService = new TaskService();
   }
+
   public register(): Router {
     this.router.post("/task", this.postTask.bind(this));
     this.router.get("/task/:id", this.getTaskById.bind(this));
@@ -32,7 +34,7 @@ export default class TaskController extends BaseApi {
   public async postTask(
     req: Request,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void> {
     try {
       const { body }: { body: TaskBody } = req;
@@ -53,11 +55,11 @@ export default class TaskController extends BaseApi {
   public async getTaskById(
     req: Request,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void> {
     try {
       const id: string = getIdFromRouteParams(req);
-      let taskResponse = await this.taskService.fetchTaskById(id);
+      const taskResponse = await this.taskService.fetchTaskById(id);
       res.locals.data = taskResponse;
       super.send(res);
     } catch (err) {
@@ -74,7 +76,7 @@ export default class TaskController extends BaseApi {
   public async putTask(
     req: Request,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void> {
     try {
       const id: string = getIdFromRouteParams(req);
@@ -96,11 +98,11 @@ export default class TaskController extends BaseApi {
   public async deleteTask(
     req: Request,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void> {
     try {
       const id: string = getIdFromRouteParams(req);
-      let taskResponse: string = await this.taskService.deleteTask(id);
+      const taskResponse: string = await this.taskService.deleteTask(id);
       res.locals.data = taskResponse;
       super.send(res);
     } catch (err) {
@@ -117,18 +119,18 @@ export default class TaskController extends BaseApi {
   public async getTasks(
     req: Request,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void> {
     try {
-      const {
-        query: { assignedTo, category, page, pageSize },
-      }: any = req;
+      const { assignedTo, category, page, pageSize } = req.query as {
+        [key: string]: string;
+      };
       const { skip, limit } = paginate({ page, pageSize });
-      let taskResponse = await this.taskService.fetchAllTasks(
+      const taskResponse = await this.taskService.fetchAllTasks(
         category,
         assignedTo,
         skip,
-        limit,
+        limit
       );
       res.locals.data = taskResponse;
       super.send(res);

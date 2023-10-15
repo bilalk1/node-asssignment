@@ -1,10 +1,10 @@
-export const taskMockData: any = {
-    id: '1',
-    title: 'Sample Task',
-    description: 'Description',
-    dueDate: new Date(),
-    assignedTo: "Bilal Iftikhar",
-    category: "Test",
-    status: "Pending",
-    creationDate: new Date(),
+export const taskMockData: { [key: string]: string } = {
+  id: "1",
+  title: "Sample Task",
+  description: "Description",
+  dueDate: '15/10/2023',
+  assignedTo: "Bilal Iftikhar",
+  category: "Test",
+  status: "Pending",
+  creationDate: '15/10/2023',
 };
