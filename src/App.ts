@@ -2,12 +2,13 @@ import { StatusCodes } from "http-status-codes";
 import express, { Request, Response } from "express";
 import http from "http";
 
-import routes from "./routes";
 import { SERVER_HEALTHY } from "./messages";
 import helmet from "helmet";
 import cors from "cors";
 import bodyParser from "body-parser";
 import addErrorHandler from "./middleware/error-handler";
+import { authenticate } from "./middleware/authentication";
+import { privateRouter, publicRouter } from "./routes";
 
 export default class App {
   public express: express.Application;
@@ -23,10 +24,11 @@ export default class App {
   }
 
   private routes(): void {
-    this.express.use("/", routes());
     this.express.use("/health", (req: Request, res: Response) =>
       res.status(StatusCodes.OK).json(SERVER_HEALTHY),
     );
+    this.express.use("/auth", publicRouter());
+    this.express.use("/api", authenticate, privateRouter());
   }
 
   private middleware(): void {

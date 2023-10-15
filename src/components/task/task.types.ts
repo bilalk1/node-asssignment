@@ -4,8 +4,8 @@ export interface TaskResponse {
   description: string;
   creationDate: Date;
   dueDate: Date;
-  assignedTo: String;
-  category: String;
+  assignedTo: string;
+  category: string;
   status: string;
 }
 
@@ -13,7 +13,7 @@ export interface TaskBody {
   title: string;
   description: string;
   dueDate: Date;
-  assignedTo: String;
-  category: String;
+  assignedTo: string;
+  category: string;
   status: string;
 }

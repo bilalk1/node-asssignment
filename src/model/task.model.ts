@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Model } from 'mongoose';
+import mongoose, { Document, Schema, Model, ObjectId } from 'mongoose';
 
 export interface ITaskDocument extends Document {
   id: number;
@@ -6,7 +6,7 @@ export interface ITaskDocument extends Document {
   description: string;
   creationDate: Date;
   dueDate: Date;
-  assignedTo: string;
+  assignedTo: ObjectId;
   category: string;
   status: string;
 }
@@ -17,7 +17,7 @@ const taskSchema = new Schema<ITaskDocument>({
   description: String,
   creationDate: Date,
   dueDate: Date,
-  assignedTo: String,
+  assignedTo: { type: Schema.Types.ObjectId, ref: 'User' },
   category: String,
   status: String,
 });
