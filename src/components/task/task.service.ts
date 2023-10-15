@@ -77,8 +77,8 @@ export default class TaskService {
    * @returns
    */
   public async fetchAllTasks(
-    category: string,
-    assignedTo: string,
+    category?: string,
+    assignedTo?: string,
     skip: number = 1,
     limit: number = 10,
   ): Promise<{ tasks: ITaskDocument[]; totalTask: number }> {
