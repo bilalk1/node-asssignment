@@ -20,7 +20,11 @@ const taskSchema = new Schema<ITaskDocument>({
   assignedTo: { type: Schema.Types.ObjectId, ref: 'User' },
   category: String,
   status: String,
-});
+},
+{
+  timestamps: true
+}
+);
 
 export const TaskModel: Model<ITaskDocument> = mongoose.model(
   'Task',

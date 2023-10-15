@@ -13,7 +13,7 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
     throw new ApiError(TOKEN_NOT_PROVIDED, StatusCodes.UNAUTHORIZED);
   }
   const [Bearer, token] = authorizationToken.split(' ');
-  jwt.verify(token, env.secretKey, (err: JsonWebTokenError, decoded: any) => {
+  jwt.verify(token, env.secretKey, (err: JsonWebTokenError,) => {
     if (err) {
       throw new ApiError(TOKEN_FAILED_AUTHENTICATE, StatusCodes.FORBIDDEN);
     }

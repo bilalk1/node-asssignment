@@ -34,7 +34,7 @@ export default class TaskController extends BaseApi {
   public async postTask(
     req: Request,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void> {
     try {
       const { body }: { body: TaskBody } = req;
@@ -55,7 +55,7 @@ export default class TaskController extends BaseApi {
   public async getTaskById(
     req: Request,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void> {
     try {
       const id: string = getIdFromRouteParams(req);
@@ -76,7 +76,7 @@ export default class TaskController extends BaseApi {
   public async putTask(
     req: Request,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void> {
     try {
       const id: string = getIdFromRouteParams(req);
@@ -98,7 +98,7 @@ export default class TaskController extends BaseApi {
   public async deleteTask(
     req: Request,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void> {
     try {
       const id: string = getIdFromRouteParams(req);
@@ -119,18 +119,18 @@ export default class TaskController extends BaseApi {
   public async getTasks(
     req: Request,
     res: Response,
-    next: NextFunction,
+    next: NextFunction
   ): Promise<void> {
     try {
-      const {
-        query: { assignedTo, category, page, pageSize },
-      }: any = req;
+      const { assignedTo, category, page, pageSize } = req.query as {
+        [key: string]: string;
+      };
       const { skip, limit } = paginate({ page, pageSize });
       const taskResponse = await this.taskService.fetchAllTasks(
         category,
         assignedTo,
         skip,
-        limit,
+        limit
       );
       res.locals.data = taskResponse;
       super.send(res);

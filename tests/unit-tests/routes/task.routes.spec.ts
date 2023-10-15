@@ -6,7 +6,7 @@ import IntegrationHelpers from '../helpers/Integration-helpers';
 import { StatusCodes } from 'http-status-codes';
 import { TaskModel } from '../../../src/model/task.model';
 import { taskMockData } from '../mock.data';
-import { UpdateWriteOpResult } from 'mongoose';
+import { UpdateWriteOpResult} from 'mongoose';
 
 
 
@@ -26,7 +26,7 @@ describe('Tasks', function () {
 
     it('should create a new task', async () => {
         const mockCreate = jest.spyOn(TaskModel, 'create');
-        mockCreate.mockResolvedValue(taskMockData);
+        mockCreate.mockResolvedValue(taskMockData as any);
 
         const response = await request(app)
             .post('/api/task')

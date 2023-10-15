@@ -26,13 +26,14 @@ export default class TaskService {
    * @param taskBody
    * @returns
    */
-  public async createTask(taskBody: TaskBody): Promise<any> {
-    taskBody.dueDate = new Date(taskBody.dueDate);
+  public async createTask(taskBody: TaskBody): Promise<ITaskDocument> {
     const user = await this.userService.fetchUserByName(taskBody.assignedTo);
-    taskBody.assignedTo = user?._id;
-    const createdTask = (await TaskModel.create(taskBody)).populate(
-      'assignedTo',
-    );
+    const task = {
+      ...taskBody,
+      assignedTo: user?._id,
+      dueDate: new Date(taskBody.dueDate),
+    };
+    const createdTask = await TaskModel.create(task);
     return createdTask;
   }
 
@@ -55,15 +56,20 @@ export default class TaskService {
    * @returns
    */
   public async updateTask(_id: string, taskBody: TaskBody): Promise<string> {
+    let task = { ...taskBody };
     if (taskBody.assignedTo) {
       const user = await this.userService.fetchUserByName(taskBody.assignedTo);
-      taskBody.assignedTo = user?._id;
+      task = {
+        ...task,
+        assignedTo: user?._id,
+      };
     }
+   
     const { matchedCount } = await TaskModel.updateOne({ _id }, taskBody);
     if (!matchedCount)
       throw new ApiError(
         UPDATE_TASK_ERROR_ID_NOT_EXISTS,
-        StatusCodes.NOT_FOUND,
+        StatusCodes.NOT_FOUND
       );
     return UPDATE_TASK_SUCCESS;
   }
@@ -78,7 +84,7 @@ export default class TaskService {
     if (!deletedCount)
       throw new ApiError(
         DELETE_TASK_ERROR_ID_NOT_EXISTS,
-        StatusCodes.NOT_FOUND,
+        StatusCodes.NOT_FOUND
       );
     return DELETE_TASK_SUCCESS;
   }
@@ -95,7 +101,7 @@ export default class TaskService {
     category?: string,
     assignedTo?: string,
     skip: number = 1,
-    limit: number = 10,
+    limit: number = 10
   ): Promise<{ tasks: ITaskDocument[]; totalTask: number }> {
     let query = {};
     if (category) {

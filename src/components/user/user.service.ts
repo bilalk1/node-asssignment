@@ -1,15 +1,16 @@
-import { StatusCodes } from "http-status-codes";
-import ApiError from "../../abstractions/ApiError";
-import { ERROR_USER_NOT_EXISTS } from "../../messages";
-import { IUserDocument, UserModel } from "../../model/user.model";
-import { encryptPassword } from "../../helpers";
-import JwtService from "../jwt/jwt.service";
+import { StatusCodes } from 'http-status-codes';
+import ApiError from '../../abstractions/ApiError';
+import { encryptPassword } from '../../helpers';
+import { ERROR_USER_NOT_EXISTS } from '../../messages';
+import { IUserDocument, UserModel } from '../../model/user.model';
+import JwtService from '../jwt/jwt.service';
 
 /**
  * User service
  */
 export default class UserService {
   private jwtService: JwtService;
+
   constructor() {
     this.jwtService = new JwtService();
   }
@@ -23,7 +24,7 @@ export default class UserService {
     name: string,
     email: string,
     password: string,
-  ): Promise<any> {
+  ): Promise<IUserDocument> {
     const encryptedPassword = await encryptPassword(password);
     const createdUser = await UserModel.create({
       name,

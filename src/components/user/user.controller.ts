@@ -1,19 +1,21 @@
-import { NextFunction, Request, Router, Response } from "express";
+import { NextFunction, Request, Router, Response } from 'express';
 
-import BaseApi from "../BaseApi";
-import UserService from "./user.service";
+import BaseApi from '../BaseApi';
+import UserService from './user.service';
 
 /**
  * User controller
  */
 export default class UserController extends BaseApi {
   private userService: UserService;
+
   constructor() {
     super();
     this.userService = new UserService();
   }
+
   public register(): Router {
-    this.router.post("/", this.postUser.bind(this));
+    this.router.post('/', this.postUser.bind(this));
     return this.router;
   }
 
