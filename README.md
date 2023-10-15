@@ -1,4 +1,4 @@
-# Node TypeScript Boilerplate
+# Node TypeScript
 
 ![Node.js](https://img.shields.io/badge/Node.js-14.x-green)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.x-blue)
@@ -117,6 +117,9 @@ npm run test:watch
   ```bash
   npm run pretty
   ```
+  ## Documentation
+
+- You can find API documentation in the `docs` folder.
 
 ## Author
 
