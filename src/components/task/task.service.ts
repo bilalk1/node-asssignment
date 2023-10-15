@@ -108,9 +108,10 @@ export default class TaskService {
       query = { category };
     }
     if (assignedTo) {
+      const user = await this.userService.fetchUserByName(assignedTo);
       query = {
         ...query,
-        assignedTo,
+        assignedTo: user._id,
       };
     }
     const [tasks, totalTask] = await Promise.all([
