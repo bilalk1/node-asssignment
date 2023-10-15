@@ -1,7 +1,7 @@
-import { Response, Router } from "express";
-import { StatusCodes } from "http-status-codes";
-import Crypto from "../lib/crypto";
-import logger from "../lib/logger";
+import { Response, Router } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import Crypto from '../lib/crypto';
+import logger from '../lib/logger';
 
 /**
  * Provides services common to all API methods

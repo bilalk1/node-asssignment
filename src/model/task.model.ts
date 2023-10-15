@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Model } from "mongoose";
+import mongoose, { Document, Schema, Model } from 'mongoose';
 
 export interface ITaskDocument extends Document {
   id: number;
@@ -23,6 +23,6 @@ const taskSchema = new Schema<ITaskDocument>({
 });
 
 export const TaskModel: Model<ITaskDocument> = mongoose.model(
-  "Task",
+  'Task',
   taskSchema,
 );

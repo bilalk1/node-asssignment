@@ -1,8 +1,8 @@
-import { existsSync, mkdirSync } from "fs";
-import { Logger } from "winston";
-import winston = require("winston");
+import { existsSync, mkdirSync } from 'fs';
+import { Logger } from 'winston';
+import winston = require('winston');
 
-const logDir = "./logs";
+const logDir = './logs';
 
 if (!existsSync(logDir)) {
   mkdirSync(logDir);

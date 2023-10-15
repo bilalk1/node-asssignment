@@ -1,9 +1,9 @@
-import * as util from "util";
-import * as express from "express";
-import { StatusCodes } from "http-status-codes";
-import ApiError from "../abstractions/ApiError";
-import Crypto from "../lib/crypto";
-import logger from "../lib/logger";
+import * as util from 'util';
+import * as express from 'express';
+import { StatusCodes } from 'http-status-codes';
+import ApiError from '../abstractions/ApiError';
+import Crypto from '../lib/crypto';
+import logger from '../lib/logger';
 
 const addErrorHandler = (
   err: ApiError,
@@ -22,10 +22,10 @@ const addErrorHandler = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let body: any = {
       fields: err.fields,
-      message: err.message || "An error occurred during the request.",
+      message: err.message || 'An error occurred during the request.',
       name: err.name,
       status,
-      stack: "",
+      stack: '',
     };
 
     // If the environment is production then no need to send error stack trace

@@ -1,5 +1,5 @@
-import { Request } from "express";
-import { PaginationOptions } from "../types";
+import { Request } from 'express';
+import { PaginationOptions } from '../types';
 
 export const paginate = (paginationOptions: PaginationOptions) => {
   const { page, pageSize } = paginationOptions;

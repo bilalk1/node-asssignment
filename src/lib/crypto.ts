@@ -1,8 +1,8 @@
-import * as crypto from "crypto";
+import * as crypto from 'crypto';
 
 export default class Crypto {
   // algorithm - AES 256 GCM Mode
-  private static algorithm: crypto.CipherGCMTypes = "aes-256-gcm";
+  private static algorithm: crypto.CipherGCMTypes = 'aes-256-gcm';
 
   // iterations: It must be a number and should be set as high as possible.
   // So, the more is the number of iterations, the more secure the derived key will be,
@@ -15,15 +15,15 @@ export default class Crypto {
   private static keylen = 32;
 
   // digest: It is a digest algorithms of string type.
-  private static digest = "sha512";
+  private static digest = 'sha512';
 
   // random salt
   private static salt: Buffer = crypto.randomBytes(64);
 
   public static encrypt(data: string, secretKey: string): string {
     // constant to encrypt the data
-    const inputEncoding = "utf8";
-    const outputEncoding = "base64";
+    const inputEncoding = 'utf8';
+    const outputEncoding = 'base64';
 
     // random initialization vector
     const iv = crypto.randomBytes(12);
@@ -70,8 +70,8 @@ export default class Crypto {
 
   public static decrypt(data: string, secretKey: string): string {
     // constant to decrypt the data
-    const inputEncoding = "base64";
-    const outputEncoding = "utf8";
+    const inputEncoding = 'base64';
+    const outputEncoding = 'utf8';
 
     // Creates a new Buffer containing the given JavaScript string {str}
     // eslint-disable-next-line no-param-reassign
