@@ -1,15 +1,15 @@
-import { ITaskDocument, TaskModel } from "../../model/task.model";
-import { TaskBody } from "./task.types";
-import ApiError from "../../abstractions/ApiError";
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from 'http-status-codes';
+import ApiError from '../../abstractions/ApiError';
 import {
   DELETE_TASK_ERROR_ID_NOT_EXISTS,
   DELETE_TASK_SUCCESS,
   GET_TASK_ERROR_ID_NOT_EXISTS,
   UPDATE_TASK_ERROR_ID_NOT_EXISTS,
   UPDATE_TASK_SUCCESS,
-} from "../../messages";
-import UserService from "../user/user.service";
+} from '../../messages';
+import { ITaskDocument, TaskModel } from '../../model/task.model';
+import UserService from '../user/user.service';
+import { TaskBody } from './task.types';
 
 /**
  * Task service
@@ -31,7 +31,7 @@ export default class TaskService {
     const user = await this.userService.fetchUserByName(taskBody.assignedTo);
     taskBody.assignedTo = user?._id;
     const createdTask = (await TaskModel.create(taskBody)).populate(
-      "assignedTo",
+      'assignedTo',
     );
     return createdTask;
   }
@@ -42,7 +42,7 @@ export default class TaskService {
    * @returns
    */
   public async fetchTaskById(id: string): Promise<ITaskDocument> {
-    const task = await await TaskModel.findById(id).populate("assignedTo");
+    const task = await await TaskModel.findById(id).populate('assignedTo');
     if (!task)
       throw new ApiError(GET_TASK_ERROR_ID_NOT_EXISTS, StatusCodes.NOT_FOUND);
     return task;
@@ -108,7 +108,7 @@ export default class TaskService {
       };
     }
     const [tasks, totalTask] = await Promise.all([
-      TaskModel.find(query).populate("assignedTo").skip(skip).limit(limit),
+      TaskModel.find(query).populate('assignedTo').skip(skip).limit(limit),
       TaskModel.count(query),
     ]);
     return { tasks, totalTask };
