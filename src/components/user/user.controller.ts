@@ -29,13 +29,18 @@ export default class UserController extends BaseApi {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const { body: { name, password, email } } = req;
-      const userResponse = await this.userService.createUser(name,email,password);
+      const {
+        body: { name, password, email },
+      } = req;
+      const userResponse = await this.userService.createUser(
+        name,
+        email,
+        password,
+      );
       res.locals.data = userResponse;
       super.send(res);
     } catch (err) {
       next(err);
     }
   }
-
 }

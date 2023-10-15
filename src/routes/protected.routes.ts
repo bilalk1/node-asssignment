@@ -5,6 +5,6 @@ export function privateRouter(): Router {
   const routes = Router();
 
   const taskController: TaskController = new TaskController();
-  routes.use('/', taskController.register(), );
+  routes.use('/', taskController.register());
   return routes;
 }

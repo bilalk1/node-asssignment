@@ -18,7 +18,7 @@ export default class TaskService {
   private userService: UserService;
 
   constructor() {
-    this.userService = new UserService()
+    this.userService = new UserService();
   }
 
   /**
@@ -28,9 +28,11 @@ export default class TaskService {
    */
   public async createTask(taskBody: TaskBody): Promise<any> {
     taskBody.dueDate = new Date(taskBody.dueDate);
-    const user = await this.userService.fetchUserByName(taskBody.assignedTo)
-    taskBody.assignedTo = user?._id
-    const createdTask = (await TaskModel.create(taskBody)).populate('assignedTo');
+    const user = await this.userService.fetchUserByName(taskBody.assignedTo);
+    taskBody.assignedTo = user?._id;
+    const createdTask = (await TaskModel.create(taskBody)).populate(
+      "assignedTo",
+    );
     return createdTask;
   }
 
@@ -40,7 +42,7 @@ export default class TaskService {
    * @returns
    */
   public async fetchTaskById(id: string): Promise<ITaskDocument> {
-    const task = await await TaskModel.findById(id).populate('assignedTo');
+    const task = await await TaskModel.findById(id).populate("assignedTo");
     if (!task)
       throw new ApiError(GET_TASK_ERROR_ID_NOT_EXISTS, StatusCodes.NOT_FOUND);
     return task;
@@ -54,8 +56,8 @@ export default class TaskService {
    */
   public async updateTask(_id: string, taskBody: TaskBody): Promise<string> {
     if (taskBody.assignedTo) {
-      const user = await this.userService.fetchUserByName(taskBody.assignedTo)
-      taskBody.assignedTo = user?._id
+      const user = await this.userService.fetchUserByName(taskBody.assignedTo);
+      taskBody.assignedTo = user?._id;
     }
     const { matchedCount } = await TaskModel.updateOne({ _id }, taskBody);
     if (!matchedCount)
@@ -106,7 +108,7 @@ export default class TaskService {
       };
     }
     const [tasks, totalTask] = await Promise.all([
-      TaskModel.find(query).populate('assignedTo').skip(skip).limit(limit),
+      TaskModel.find(query).populate("assignedTo").skip(skip).limit(limit),
       TaskModel.count(query),
     ]);
     return { tasks, totalTask };
