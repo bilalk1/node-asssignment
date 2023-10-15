@@ -38,7 +38,7 @@ Before you begin, ensure you have met the following requirements:
 1. Clone the repository:
 
    ```bash
-    git@github.com:bilalk1/node-asssignment.git
+    git clone git@github.com:bilalk1/node-asssignment.git
    ```
 
 2. Navigate to the project directory:
@@ -48,6 +48,11 @@ Before you begin, ensure you have met the following requirements:
    ```
 
 3. Install project dependencies:
+
+   ```
+   create .env file
+   ```
+4. Install project dependencies:
 
    ```bash
    npm install
