@@ -20,7 +20,11 @@ const taskSchema = new Schema<ITaskDocument>({
   assignedTo: String,
   category: String,
   status: String,
-});
+},
+{
+  timestamps: true
+}
+);
 
 export const TaskModel: Model<ITaskDocument> = mongoose.model(
   'Task',
