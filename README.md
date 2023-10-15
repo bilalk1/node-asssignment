@@ -121,6 +121,23 @@ npm run test:watch
 
 - You can find API documentation in the `docs` folder.
 
+  ## Bonus Task
+
+1. Switch Branch 
+   ```bash
+   git checkout bonus-task
+   ```
+2. Install project dependencies:
+
+   ```bash
+   npm install
+   ```
+3. Run the project 
+   ```bash
+   npm run dev
+   ```
+
+
 ## Author
 
 - [Bilal Iftikhar](https://github.com/bilalk1)
