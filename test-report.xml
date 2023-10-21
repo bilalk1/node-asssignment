@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/Users/mac/Desktop/node-asssignment/tests/unit-tests/dummy.spec.ts">
+    <testCase name="Dummy Test Cases Verify Jest is working" duration="6"/>
+  </file>
+  <file path="/Users/mac/Desktop/node-asssignment/tests/unit-tests/components/task/task.service.spec.ts">
+    <testCase name="TaskService should create a task" duration="7"/>
+    <testCase name="TaskService should get task by id" duration="0"/>
+    <testCase name="TaskService should throw api error if task does not exist" duration="0"/>
+    <testCase name="TaskService should update task" duration="1"/>
+    <testCase name="TaskService should delete task" duration="1"/>
+  </file>
+  <file path="/Users/mac/Desktop/node-asssignment/tests/unit-tests/routes/task.routes.spec.ts">
+    <testCase name="Tasks should return 200 on calling health check api" duration="33"/>
+    <testCase name="Tasks should create a new task" duration="28"/>
+    <testCase name="Tasks should return a task" duration="5"/>
+    <testCase name="Tasks should update a task" duration="4"/>
+    <testCase name="Tasks should delete a task" duration="5"/>
+  </file>
+</testExecutions>
